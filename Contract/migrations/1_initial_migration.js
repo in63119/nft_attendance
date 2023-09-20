@@ -1,13 +1,12 @@
 // contract
-// const MilalPOC = artifacts.require("MilalPOC");
-const Milal = artifacts.require("Milal");
+const CodestatesAttend = artifacts.require("CodestatesAttend");
 
 // makeAbi
 const { makeAbi } = require("../utils/makeABI");
 
 module.exports = async function (deployer) {
-  await deployer.deploy(Milal);
-  const MilalContract = await Milal.deployed();
+  await deployer.deploy(CodestatesAttend);
+  const CodestatesAttendContract = await CodestatesAttend.deployed();
 
-  makeAbi("Milal", MilalContract.address);
+  makeAbi("CodestatesAttend", CodestatesAttendContract.address);
 };
