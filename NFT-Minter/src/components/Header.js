@@ -4,7 +4,7 @@ import React, { useEffect, useCallback } from "react";
 import { Box, Typography } from "@mui/material";
 
 // Images
-import headerMMG from "../img/milal_logo.png";
+import headerMMG from "../img/codestates_Logo.png";
 
 import { REACT_APP_RPC_URL } from "../utils/config.js";
 
@@ -71,7 +71,7 @@ export default function Header() {
       <Box onClick={reset} sx={{ display: "flex", cursor: "pointer" }}>
         <img src={headerMMG} width="auto" height="40px" alt="logo" />
         <Typography variant="h4" ml="10px">
-          Milal {whichNet.network}
+          Attend {whichNet.network}
         </Typography>
       </Box>
     </Box>

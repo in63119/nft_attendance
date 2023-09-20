@@ -1,14 +1,20 @@
 import React from "react";
 
 // Image
-import kilpLogo from "../img/klip_Logo.png";
+import klaytnScopeLogo from "../img/scope.png";
 
 // MUI css
 import { Box, Typography } from "@mui/material";
 
+// Recoil
+import { useRecoilValue } from "recoil";
+import { addressState } from "../recoil/addressForMint";
+
 export default function Done() {
-  const handleKlip = () => {
-    window.location.href = "kakaotalk://";
+  const { address } = useRecoilValue(addressState);
+
+  const handleClick = () => {
+    window.location.href = `https://baobab.klaytnscope.com/account/${address}?tabId=nftTransfer`;
   };
 
   return (
@@ -21,10 +27,10 @@ export default function Done() {
       }}
     >
       <Typography sx={{ margin: "0 auto" }}>
-        NFT 민팅이 완료 되었습니다.
+        NFT 출석 체크가 완료 되었습니다.
       </Typography>
       <Typography sx={{ margin: "0 auto" }}>
-        아래 이미지를 눌러 Klip에서 확인해주세요.
+        아래 이미지를 눌러 Klaytn Scope에서 확인해주세요.
       </Typography>
       <Box
         sx={{
@@ -33,12 +39,12 @@ export default function Done() {
         }}
       >
         <img
-          src={kilpLogo}
+          src={klaytnScopeLogo}
           width="200px"
           height="auto"
           style={{ cursor: "pointer" }}
           alt="logo"
-          onClick={handleKlip}
+          onClick={handleClick}
         />
       </Box>
     </Box>

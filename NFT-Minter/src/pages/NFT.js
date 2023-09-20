@@ -5,14 +5,14 @@ import { Box } from "@mui/material";
 
 // recoil
 import { useRecoilValue } from "recoil";
-import { securityState } from "../recoil/security.js";
+import { addressState } from "../recoil/addressForMint.js";
 
 // component
 import BeforeMint from "../components/BeforeMint.js";
 import MintButton from "../components/MintButton.js";
 
 export default function NFT() {
-  const isReady = useRecoilValue(securityState);
+  const isReady = useRecoilValue(addressState);
 
   return (
     <Box sx={{ display: "flex", justifyContent: "center", mt: "3%" }}>
@@ -23,9 +23,8 @@ export default function NFT() {
           justifyContent: "center",
         }}
       >
-        {isReady.isSecurityCode ? (
+        {isReady.isReady ? (
           <>
-            <Box sx={{ mb: "10%" }}>파일이 민팅할 준비가 되었습니다!</Box>
             <BeforeMint />
             <Box sx={{ display: "flex", justifyContent: "center", mt: "10%" }}>
               <MintButton />
@@ -33,7 +32,7 @@ export default function NFT() {
           </>
         ) : (
           <>
-            <Box sx={{ mb: "10%" }}>MAIN의 코드를 입력해주세요</Box>
+            <Box sx={{ mb: "10%" }}>주소를 확인 해주세요.</Box>
           </>
         )}
       </Box>

@@ -6,7 +6,7 @@ const { persistAtom } = recoilPersist();
 export const fileNumState = atom({
   key: "fileNumber",
   default: {
-    count: 0,
+    count: 1,
   },
   effects_UNSTABLE: [persistAtom],
 });

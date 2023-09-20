@@ -12,28 +12,11 @@ export const attributeSelector = selector({
     return attributes;
   },
   set: ({ set }, newValue) => {
-    let filter = newValue.reverse();
     let result = [];
 
-    // for (let i = 0; i < filter.length; i++) {
-    //   if (filter[i].trait_type !== "" || filter[i].value !== "") {
-    //     if (filter[i].trait_type === "Artist") {
-    //       result.push(filter[i]);
-    //       break;
-    //     }
-    //   }
-    // }
+    result.push({ trait_type: "Class", value: "서울블록체인" });
 
-    for (let i = 0; i < filter.length; i++) {
-      if (filter[i].trait_type !== "" || filter[i].value !== "") {
-        if (filter[i].trait_type === "Class") {
-          result.push(filter[i]);
-          break;
-        }
-      }
-    }
-
-    result.push({ trait_type: "Kindergarten", value: "밀알 성품 어린이집" });
+    result.push({ trait_type: "Institution", value: "코드스테이츠" });
 
     set(attributesState, result);
   },

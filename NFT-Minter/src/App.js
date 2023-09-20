@@ -6,7 +6,6 @@ import { SnackbarProvider } from "notistack";
 // pages
 import Main from "./pages/Main.js";
 import NFT from "./pages/NFT.js";
-import JSON from "./pages/JSON.js";
 import Done from "./pages/Done.js";
 
 // components
@@ -32,7 +31,6 @@ function App() {
         {isSuccess.isSuccess ? null : <TabSelector />}
         <Routes>
           <Route path="/" element={<Main />} />
-          <Route path="/Json" element={<JSON />} />
           <Route path="/NFT" element={<NFT />} />
           <Route path="/done" element={<Done />} />
         </Routes>

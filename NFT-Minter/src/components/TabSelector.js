@@ -37,7 +37,6 @@ export default function TabSelector() {
         aria-label="secondary tabs example"
       >
         <Tab label="Main" value="Main" />
-        <Tab label="Json" value="Json" />
         <Tab label="NFT" value="NFT" />
       </Tabs>
     </Box>
