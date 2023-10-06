@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 // MUI css
 import {
@@ -16,6 +16,9 @@ import {
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { nftMetaState } from "../recoil/nftMeta.js";
 
+// Util
+import { when } from "../utils/imgUrl.js";
+
 export default function BeforeMint() {
   const metaData = useRecoilValue(nftMetaState);
   const nftMeta = useSetRecoilState(nftMetaState);
@@ -28,11 +31,20 @@ export default function BeforeMint() {
     nftMeta((prev) => ({
       ...prev,
       name: e.target.value,
-      description: attendMessage,
     }));
   };
 
-  console.log(metaData);
+  useEffect(() => {
+    const dateInfo = when();
+
+    if (dateInfo.result) {
+      nftMeta((prev) => ({
+        ...prev,
+        description: attendMessage,
+        image: dateInfo.img,
+      }));
+    }
+  }, [attendMessage, nftMeta]);
 
   return (
     <Box sx={{ mb: "5%" }}>
@@ -43,7 +55,7 @@ export default function BeforeMint() {
           </Typography>
           <Box sx={{ display: "flex", justifyContent: "center" }}>
             <img
-              src="https://in-nft.s3.ap-northeast-2.amazonaws.com/%E1%84%8E%E1%85%AE%E1%86%AF%E1%84%8E%E1%85%A6%E1%86%A8_%E1%84%8F%E1%85%A9%E1%84%83%E1%85%B3%E1%84%89%E1%85%B3%E1%84%90%E1%85%A6%E1%84%8B%E1%85%B5%E1%84%8E%E1%85%B3.png"
+              src={metaData.image}
               alt="select img"
               style={{ width: "50%", height: "auto" }}
             />

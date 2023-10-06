@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 // MUI css
@@ -13,10 +13,14 @@ import { addressState } from "../recoil/addressForMint.js";
 // caver
 import { checkAddress } from "../utils/caver.js";
 
+// Util
+import { when } from "../utils/imgUrl.js";
+
 export default function Main() {
   const setLoading = useSetRecoilState(loadingState);
   const setTabSelect = useSetRecoilState(tabSelectState);
   const [isErr, setIsErr] = useState(false);
+  const [isTodayAttendance, setIsTodayAttendance] = useState(false);
   const [address, setAddress] = useRecoilState(addressState);
   const navigate = useNavigate();
 
@@ -50,55 +54,70 @@ export default function Main() {
     }
   };
 
+  useEffect(() => {
+    const dateInfo = when();
+    setIsTodayAttendance(dateInfo.result);
+  }, []);
+
   return (
     <Box sx={{ display: "flex", flexDirection: "column", mt: "3%" }}>
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "center",
-          mt: "5%",
-        }}
-      >
-        <Box sx={{ width: "70%" }}>
-          {!isErr ? (
-            <>
-              <TextField
-                autoFocus
-                margin="dense"
-                id="addressInput"
-                label="Address: 출석 체크할 Address를 넣어주세요."
-                variant="standard"
-                fullWidth
-                onChange={handleInput}
-              />
-            </>
-          ) : (
-            <>
-              <TextField
-                error
-                id="standard-error-helper-text"
-                label="받을 주소가 올바르지 않습니다."
-                fullWidth
-                helperText="유효한 주소인지 확인해주세요."
-                variant="standard"
-                onChange={handleInput}
-              />
-            </>
-          )}
-        </Box>
-      </Box>
-      {!isErr && address.isReady ? (
-        <Box sx={{ width: "100%", display: "flex", justifyContent: "center" }}>
-          <Button
-            sx={{ width: "40%", mt: "5%" }}
-            onClick={handleCheckAddress}
-            variant="contained"
+      {isTodayAttendance ? (
+        <>
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "center",
+              mt: "5%",
+            }}
           >
-            시작하기
-          </Button>
+            <Box sx={{ width: "70%" }}>
+              {!isErr ? (
+                <>
+                  <TextField
+                    autoFocus
+                    margin="dense"
+                    id="addressInput"
+                    label="Address: 출석 체크할 Address를 넣어주세요."
+                    variant="standard"
+                    fullWidth
+                    onChange={handleInput}
+                  />
+                </>
+              ) : (
+                <>
+                  <TextField
+                    error
+                    id="standard-error-helper-text"
+                    label="받을 주소가 올바르지 않습니다."
+                    fullWidth
+                    helperText="유효한 주소인지 확인해주세요."
+                    variant="standard"
+                    onChange={handleInput}
+                  />
+                </>
+              )}
+            </Box>
+          </Box>
+          {!isErr && address.isReady ? (
+            <Box
+              sx={{ width: "100%", display: "flex", justifyContent: "center" }}
+            >
+              <Button
+                sx={{ width: "40%", mt: "5%" }}
+                onClick={handleCheckAddress}
+                variant="contained"
+              >
+                시작하기
+              </Button>
+            </Box>
+          ) : null}
+        </>
+      ) : (
+        <Box sx={{ display: "flex", justifyContent: "center" }}>
+          <Box>출석일이 아닙니다.</Box>
         </Box>
-      ) : null}
+      )}
     </Box>
   );
 }
